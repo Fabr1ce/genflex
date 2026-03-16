@@ -1,0 +1,181 @@
+{
+  "eval_set_id": "evalset90f72d",
+  "name": "evalset90f72d",
+  "eval_cases": [
+    {
+      "eval_id": "casebf213b",
+      "conversation": [
+        {
+          "invocation_id": "e-5c0623c6-3c19-470b-bebc-0f635483b5e1",
+          "user_content": {
+            "parts": [
+              {
+                "text": "hi"
+              }
+            ],
+            "role": "user"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1770871260.620038
+        },
+        {
+          "invocation_id": "e-3cb2b35d-b74f-4e5c-806e-3a31c98e98a6",
+          "user_content": {
+            "parts": [
+              {
+                "text": "hi"
+              }
+            ],
+            "role": "user"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1770872317.933182
+        },
+        {
+          "invocation_id": "e-c1127cca-19a6-48ab-baaa-f517cc1da4eb",
+          "user_content": {
+            "parts": [
+              {
+                "text": "hi"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Hello! How can I help you today?",
+                "thought_signature": "CtMBAY89a19cOn_9TqKJsoQm1YCnUstX0OUREBsnosmJXtzYo1cpynkJM7H1Ce1iJ25R_1hjlKL7SM0M-JWNPDFnAQKwfJCm3twQZxlC8FBYnQvRliJkR6-cLM9OxTHOkFJHX_cRLprEabE-hHzt6cf0u8KcZBaiCMzhArTaQxmex12NeFC_njdc2cVZZWyGJbsl0sycCbtm6rIc7IzArUtZ07-fPn95O49oVAedCx3UjpNHCFeEHs_SMU8YTmoNYhTyVasp_5VpUoZfsW1fPZitr4lL7A=="
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1770872554.475671
+        },
+        {
+          "invocation_id": "e-e954f865-94d4-4cae-8a9b-c529ce5a7507",
+          "user_content": {
+            "parts": [
+              {
+                "text": "What's the weather today"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "Could you please tell me which city or location you are interested in?",
+                "thought_signature": "CrEIAY89a193AmlKUDGrihFFzLTvOjQR7z86nq5i_XZ-W2wRNAaM5jCBwMuWV8FUSGTsE_VNKu1qY2vL2qJ8WMsB14J4P_xNyNSsj3-KSQHu2HnPdMKDesOJTcmFLUCeapZgy2WjK7OLkGH1LPq6Mzilt8tEb6VCCsuhIaZB81rjrajV5R1_IglCe5zBYpcesoIDmXSmkC37iI_ckgQeS2oQfOiQJKCIzwrHXInAUNkwvLhP84JiiQLjw1mY2KqWuKGPFIzl_Gg2CEGmyvt7YwAbYKAOAy9yoJySpnTr2QxlqnPML64qfUOh5AWUGN8SHHu_ma_N1fLu6S7tcdiAKf-TJT4oKYrvC7HEcFyQKGJ-6YvpNHlpPSQZMWgwFmjPifsEv__P6z8hRQ8YZm7x0YEmt6rmoLRkkeUIhhhkDws_Gt0K_MGWQKmvkNzgj_1_SoHaZzH8cGTr0wzyhg1X6CAIsWNE6fBXVj6_-f4dIfm90wyTAKrY5sTTVO-_n_vzM1NVq5muFzOzw-DtI7cpFKHFgTN1Uu4oAwy6Gu4IP9_BgOfgfpti64mg-zo1WMshSVGHcYrYbgDZFsOT88lVy5h1Ltzpd3HC7yfO8ToVovt4hywz12NDRBRChOXYB0LEJQQSSQMkkNBtlb5BpR6su4R9Nal83M3ae0nKDLsE_QR69pM-OQYLlS3eTwWBzmkHwFvlg9dwH-mHXGGz00woiD6KBc_wrj9ZzzRfseqzrsYfN3qVv4sMS45Ah3ug1UfhUE9G5oP7Oy5Dh3FsTV5kSAbli3lIted8nXH2mNMllV_rkQlbKgTfTQsiI0J8XBwTgHNFI7qoL2S2Lpo8TJscJ7JMOhF005_m2bOnA8U1tW944qfWZx_Y3FM-K5oH8aV4PCLRtas9cg0OOjqgkS595IHrCx18OuLIB4vxQwjPIoI-lYLcAF7GDNN88PJIQekprMdPr9wf8cDbYaR4uponKa8rd7XuZbY40G1HcMm-FfIhib0MUNma2fsJnSrulPVWIJYeal-GiuTm3zkAtw1ntfGCGKkciFqKjabQsQtGHIxlo-kcdYRZO0LbZEREC8ZiGSo_2Z1w3mGyiHLv3Z0PsqYoFCEOBJSmy-qFXUbD2EIiwObNHZvNCiakeJeXv3ICCRJ2QcaoJUJ7gUOzoBPvlUKfFPDECrjZP0nPyODw6qddyiF5hzTtvQAWcBbtps1kJMiHJQBR9BSn_3vkF1lWkkGIwRYKsQxTDlgdEAOLNDxLjSjCHXXQJC5s_Uq86Sm2Cq5yPROcBq5t1LiTTjlL3A9tL3iyR31xUtdZx6qYGG8JtVF73gfVpExjg99pBGghSmAoPv2ty6VyrJeU9WyQ2d-G1QFGLokpyJlDDlesKy7SaYIJRlqjpk7rtLCtwsM7NfzxmSylJkHnQSprydaBt9DFusM="
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1770872928.626594
+        },
+        {
+          "invocation_id": "e-91e834d7-4be6-4498-9143-dd6e83955a92",
+          "user_content": {
+            "parts": [
+              {
+                "text": "New york"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The weather in New York is currently 90 degrees and sunny."
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {
+            "invocation_events": [
+              {
+                "author": "root_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "function_call": {
+                        "id": "adk-e7f4fd12-9701-4f46-a5b9-73100cc094f6",
+                        "args": {
+                          "query": "New York"
+                        },
+                        "name": "get_weather"
+                      },
+                      "thought_signature": "Cn4Bjz1rX-G0JxvIPlM9DvOOOjJveQVOAIgfLhbFV-Coz4I3I1X_hdMBb0jNBvr_iilG7vhyjYFtH950NXGNOL6NnTVzxs-kfq8Z4QRovoUnPag_hvwknE6JUx4r2Jnv9LXLfLBLkD3iamFshvbEHqEgb8tn5x_D7Q9D-K-t3Cw="
+                    }
+                  ],
+                  "role": "model"
+                }
+              },
+              {
+                "author": "root_agent",
+                "content": {
+                  "parts": [
+                    {
+                      "function_response": {
+                        "id": "adk-e7f4fd12-9701-4f46-a5b9-73100cc094f6",
+                        "name": "get_weather",
+                        "response": {
+                          "result": "It's 90 degrees and sunny."
+                        }
+                      }
+                    }
+                  ],
+                  "role": "user"
+                }
+              }
+            ]
+          },
+          "creation_timestamp": 1770872941.914471
+        },
+        {
+          "invocation_id": "e-9427120b-e6ae-479d-9755-c12c2b810fd4",
+          "user_content": {
+            "parts": [
+              {
+                "text": "What else can you help me with"
+              }
+            ],
+            "role": "user"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1770874296.848005
+        },
+        {
+          "invocation_id": "e-cc6b0813-f347-46db-8432-7caa1166f08d",
+          "user_content": {
+            "parts": [
+              {
+                "text": "What else can you help me with\n\n"
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "I can help you with a variety of tasks! For example, I can:\n\n*   **Provide weather updates:** Just let me know the city or location you're interested in.\n*   **Give you the current time:** I can tell you the current time for any city worldwide.\n*   **Answer general questions:** I have access to a wide range of information and can help with facts, explanations, and more.\n*   **Help with writing and creative tasks:** I can assist in drafting emails, stories, poems, or even code.\n*   **Provide summaries and explanations:** If you have a complex topic or a long text, I can help break it down for you.\n\nIs there anything specific you'd like to know or do?",
+                "thought_signature": "CskCAY89a18sowO6FEmO-e3Ud9I0FNAXZi7yuyRI0aJIoH8kMpwHHzyUUS07hl30hwfgjApUTcVnowv6Vyr7Rwz4suQkxfESZ1oWWnAw73AQN9Pn_lH8upgGZ94_fYY5TmHVfd_71Tl8gI-IUbzXKErjetTJ5SLYxSl5AQxDYV2kmYMHz-NXZYC5K1E1rDOmxPuALMpAOIwGwt6SisBZ-P_OeSQ1sRrF9PxDw-RBH284Ydtd2DUWGJisUMUFF5IIe7VWDS6o8plDPvKLtVyAX-JyoFIvM4rFZ2YohiIn5FnUvdEyQGUAEUNhQs281-jjqZ5bEpLttElDnjxtaxb1I1PdA_UZswIwEIybFiGXxKRXnYdse7Bpi5hi_iHhjuM8RSWMBYO6lyQl9H9DWCqn9ks3fM7kkOiXGFYy16loYtR0e2jwc5TC832KC4c="
+              }
+            ],
+            "role": "model"
+          },
+          "intermediate_data": {},
+          "creation_timestamp": 1770874548.417099
+        }
+      ],
+      "session_input": {
+        "app_name": "app",
+        "user_id": "user"
+      },
+      "creation_timestamp": 1770874616.5324717
+    }
+  ],
+  "creation_timestamp": 1770874609.8602345
+}

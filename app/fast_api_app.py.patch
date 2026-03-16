@@ -1,0 +1,101 @@
+--- app/fast_api_app.py
++++ app/fast_api_app.py
+@@ -144,52 +144,48 @@
+             run_config=RunConfig(streaming_mode=StreamingMode.NONE),
+         )
+ 
++        media_items = {}
++        media_errors = {}
++        story_text = ""
++        inline_parts = []
++
+-        parts = []
+         async for event in events:
+-            if getattr(event, "is_final_response", lambda: False)():
+-                if event.content and event.content.parts:
+-                    for part in event.content.parts:
+-                        text = getattr(part, "text", None)
+-                        inline = getattr(part, "inline_data", None)
+-                        func_resp = getattr(part, "function_response", None)
+-                        logging.info(f"FINAL EVENT PART: text={repr(text)[:120]} inline={inline is not None} func_resp={func_resp is not None}")
+-                        if text:
+-                            parts.extend(_extract_media_parts(text))
+-                        elif func_resp:
+-                            resp = getattr(func_resp, "response", None) or {}
+-                            resp_text = resp.get("output") or resp.get("result") or str(resp)
+-                            logging.info(f"FUNC_RESP payload: {repr(resp_text)[:200]}")
+-                            parts.extend(_extract_media_parts(str(resp_text)))
+-                        elif inline:
+-                            parts.append({
+-                                "type": inline.mime_type.split("/")[0] if inline.mime_type else "text",
+-                                "value": f"data:{inline.mime_type};base64,{__import__('base64').b64encode(inline.data).decode()}",
+-                            })
+-
+-        # Realize any [VISUAL_SCENE:] / [AUDIO_MOMENT:] placeholders the model wrote as text
+-        # Removed: parts = await asyncio.get_event_loop().run_in_executor(None, _realize_media_placeholders, parts)
+-
+-        # Programmatically filter out unwanted internal messages, error messages, and raw API URLs
+-        filtered_parts = []
+-        for part in parts:
+-            if part["type"] == "text":
+-                text_value = part["value"]
+-                # Filter out ERROR messages (e.g., [IMAGE_ERROR: ...], [AUDIO_ERROR: ...], [VIDEO_ERROR: ...])
+-                if re.match(r"\[(IMAGE|AUDIO|VIDEO)_ERROR:.*\]", text_value):
+-                    logging.warning(f"Filtered out error message: {text_value}")
+-                    continue
+-                # Filter out QUALITY CHECK messages
+-                if text_value.strip().startswith("QUALITY CHECK:"):
+-                    logging.warning(f"Filtered out quality check message: {text_value}")
+-                    continue
+-                # Filter out raw image API URLs
+-                if "generative-models.google.com/api/v1/images/generate" in text_value:
+-                    logging.warning(f"Filtered out raw image API URL: {text_value}")
+-                    continue
+-                filtered_parts.append(part)
+-            else: # Keep non-text parts (e.g., actual image/audio data if directly returned)
+-                filtered_parts.append(part)
+-        parts = filtered_parts
++            if event.content and event.content.parts:
++                for part in event.content.parts:
++                    # Look for tool responses (from sub-agents) across ALL events
++                    func_resp = getattr(part, "function_response", None)
++                    if func_resp:
++                        resp = getattr(func_resp, "response", None) or {}
++                        resp_text = str(resp.get("output") or resp.get("result") or resp)
++                        for m in re.finditer(r'\[(IMAGE|AUDIO|VIDEO):\s*([^\]]+)\]', resp_text):
++                            uri = m.group(2).strip()
++                            if uri.startswith("gs://"):
++                                uri = uri.replace("gs://", "https://storage.googleapis.com/", 1)
++                            media_items[m.group(1).lower()] = uri
++                        for m in re.finditer(r'\[(IMAGE_ERROR|AUDIO_ERROR|VIDEO_ERROR|VIDEO_SKIPPED)[^\]]*\]', resp_text):
++                            media_errors[m.group(1).split('_')[0].lower()] = "[Multimedia unavailable]"
++
++                    # Capture the final text from the final event only
++                    if getattr(event, "is_final_response", lambda: False)():
++                        text = getattr(part, "text", None)
++                        inline = getattr(part, "inline_data", None)
++                        if text:
++                            story_text += text + "\n"
++                        if inline:
++                            inline_parts.append({
++                                "type": inline.mime_type.split("/")[0] if inline.mime_type else "text",
++                                "value": f"data:{inline.mime_type};base64,{__import__('base64').b64encode(inline.data).decode()}",
++                            })
++
++        # Clean the final story text by removing any inline tags left over by the LLM
++        clean_story_text = re.sub(r'\[(IMAGE|AUDIO|VIDEO|IMAGE_ERROR|AUDIO_ERROR|VIDEO_ERROR|VIDEO_SKIPPED)[^\]]*\]', '', story_text)
++        clean_story_text = re.sub(r'\[QA_[A-Z]+:[^\]]+\]', '', clean_story_text)
++        clean_story_text = clean_story_text.strip()
++
++        parts = []
++        for media_type in ['image']:
++            if media_type in media_items: parts.append({"type": media_type, "value": media_items[media_type]})
++            elif media_type in media_errors: parts.append({"type": media_type, "value": media_errors[media_type]})
++        if clean_story_text: parts.append({"type": "text", "value": clean_story_text})
++        for media_type in ['audio', 'video']:
++            if media_type in media_items: parts.append({"type": media_type, "value": media_items[media_type]})
++            elif media_type in media_errors: parts.append({"type": media_type, "value": media_errors[media_type]})
++        parts.extend(inline_parts)
+ 
+         # Calculate tokens used in this request
+         tokens_used = token_tracker.session_tokens - initial_session_tokens

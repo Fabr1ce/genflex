@@ -1,0 +1,29 @@
+# Ignore AI local files
+.gemini
+.copilot
+.kiro
+.adk
+# local dev files
+logs
+static/media
+.env
+app/.*
+__pycache__
+.venv
+ENV
+.specify
+deployment_metadata.json
+.python-version
+
+# Terraform
+**/.terraform/
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+.terraformrc
+terraform.tfvars
+*.tfvars
+*.tfvars.json
+.terraform.tfvars
+.terraform.tfvars.json
+deployment/terraform/dev/.terraform/

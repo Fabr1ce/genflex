@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GenFlex Creative Storyteller</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            text-align: center;
+            color: #4a5568;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .story-output {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: none;
+            display: flex; /* Enable flexbox for two-column layout */
+            gap: 20px; /* Space between columns */
+        }
+        .text-column {
+            flex: 1; /* Takes up available space */
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        .media-column {
+            flex: 1; /* Takes up available space */
+            display: flex;
+            flex-direction: column; /* Stack media elements vertically */
+        }
+        .story-content {
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        .multimedia-element img {
+            width: 25%; /* Make image 1/4 of its container */
+            height: auto;
+            border-radius: 8px;
+            margin: 12px 0;
+            display: block;
+        }
+        .multimedia-element audio, .multimedia-element video {
+            width: 100%;
+            margin: 12px 0;
+            display: block;
+        }
+        .multimedia-element {
+            width: 100%;
+            box-sizing: border-box;
+            background: #e8f4fd;
+            border: 1px solid #b3d9ff;
+            border-radius: 6px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-weight: 600;
+        }
+        .error {
+            background: #fed7d7;
+            border: 1px solid #fc8181;
+            color: #c53030;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .hackathon-badge {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #718096;
+        }
+        .hackathon-badge strong {
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎭 GenFlex Creative Storyteller</h1>
+        <div class="hackathon-badge">
+            <strong>Google AI Hackathon 2026</strong> - Creative Storyteller Category<br>
+            Multimodal AI Agent with Interleaved Output
+        </div>
+
+        <form id="storyForm">
+            <div class="input-group">
+                <label for="prompt">What story would you like me to tell?</label>
+                <textarea
+                    id="prompt"
+                    name="prompt"
+                    placeholder="e.g., Tell me a story about a robot who discovers emotions..."
+                    required
+                ></textarea>
+            </div>
+
+            <button type="submit" id="generateBtn">
+                🎬 Generate Multimodal Story
+            </button>
+        </form>
+
+        <div id="loading" class="loading" style="display: none;">
+            🎭 Creating your story with images, audio, and video...<br>
+            This may take a moment as we generate rich multimedia content.
+        </div>
+
+        <div id="error" class="error" style="display: none;"></div>
+
+        <div id="storyOutput" class="story-output">
+            <div class="text-column" id="textColumn"><h3>📖 Your Generated Story</h3></div>
+            <div class="media-column" id="mediaColumn"></div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('storyForm');
+        const generateBtn = document.getElementById('generateBtn');
+        const loading = document.getElementById('loading');
+        const errorDiv = document.getElementById('error');
+        const storyOutput = document.getElementById('storyOutput');
+        const storyContent = document.getElementById('storyContent');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const prompt = document.getElementById('prompt').value.trim();
+            if (!prompt) return;
+
+            // Show loading state
+            generateBtn.disabled = true;
+            generateBtn.textContent = '🎨 Generating...';
+            loading.style.display = 'block';
+            errorDiv.style.display = 'none';
+            storyOutput.style.display = 'none';
+
+            try {
+                const response = await fetch('/story', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                displayStory(data.parts);
+
+            } catch (error) {
+                console.error('Error generating story:', error);
+                errorDiv.textContent = `Failed to generate story: ${error.message}`;
+                errorDiv.style.display = 'block';
+            } finally {
+                // Reset UI state
+                generateBtn.disabled = false;
+                generateBtn.textContent = '🎬 Generate Multimodal Story';
+                loading.style.display = 'none';
+            }
+        });
+
+        function displayStory(parts) {
+            const textColumn = document.getElementById('textColumn');
+            const mediaColumn = document.getElementById('mediaColumn');
+            textColumn.innerHTML = '<h3>📖 Your Generated Story</h3>'; // Clear previous content
+            mediaColumn.innerHTML = ''; // Clear previous content
+
+            parts.forEach(part => {
+                let el;
+                if (part.type === 'text') {
+                    el = document.createElement('p');
+                    el.textContent = part.value || '';
+                    el.style = 'margin:8px 0;line-height:1.6';
+                    textColumn.appendChild(el);
+                    return;
+                }
+
+                // Handle multimedia errors safely
+                if (part.value.includes('[Multimedia unavailable]') || part.value.includes('ERROR')) {
+                    const fallbackDiv = document.createElement('div');
+                    fallbackDiv.textContent = `⚠️ ${part.type.toUpperCase()} generation unavailable or skipped.`;
+                    fallbackDiv.style.color = '#718096';
+                    fallbackDiv.style.padding = '20px';
+                    fallbackDiv.style.textAlign = 'center';
+                    fallbackDiv.style.background = '#edf2f7';
+                    fallbackDiv.style.borderRadius = '6px';
+                    
+                    const multimediaDiv = document.createElement('div');
+                    multimediaDiv.classList.add('multimedia-element');
+                    multimediaDiv.appendChild(fallbackDiv);
+                    mediaColumn.appendChild(multimediaDiv);
+                    return;
+                }
+
+                if (part.type === 'image') {
+                    el = document.createElement('img');
+                    el.src = part.value;
+                    el.alt = 'Generated scene';
+                    const multimediaDiv = document.createElement('div');
+                    multimediaDiv.classList.add('multimedia-element');
+                    multimediaDiv.appendChild(el);
+                    mediaColumn.appendChild(multimediaDiv);
+                } else if (part.type === 'audio') {
+                    el = document.createElement('audio');
+                    el.controls = true;
+                    const src = document.createElement('source');
+                    src.src = part.value;
+                    el.appendChild(src);
+                    const multimediaDiv = document.createElement('div');
+                    multimediaDiv.classList.add('multimedia-element');
+                    multimediaDiv.appendChild(el);
+                    mediaColumn.appendChild(multimediaDiv);
+                } else if (part.type === 'video') {
+                    el = document.createElement('video');
+                    el.controls = true;
+                    const src = document.createElement('source');
+                    src.src = part.value;
+                    el.appendChild(src);
+                    const multimediaDiv = document.createElement('div');
+                    multimediaDiv.classList.add('multimedia-element');
+                    multimediaDiv.appendChild(el);
+                    mediaColumn.appendChild(multimediaDiv);
+                }
+            });
+
+            storyOutput.style.display = 'flex'; // Display as flexbox
+            storyOutput.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
