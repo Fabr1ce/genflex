@@ -48,7 +48,7 @@ graph TD
     C --> E[Request Processing]
     D --> E
 
-    E --> F[Orchestrator/root Agent]
+    E --> F[Orchestrator/Root Agent]
     F --> G[Story Generator Agent]
     F --> H[Visual Generator Agent]
     F --> I[Audio Generator Agent]
@@ -57,6 +57,7 @@ graph TD
     I --> K[Quality Assurance Agent]
     H --> K[Quality Assurance Agent]
     G --> K[Quality Assurance Agent]
+    K --> F[Orchestrator/Root Agent]
 
     G --> L[Gemini 2.5-flash]
     H --> L
