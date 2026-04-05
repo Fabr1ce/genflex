@@ -1,4 +1,4 @@
-# GenFlex Creative Storyteller
+# GenFlex Creative Storyteller AI Agent
 
 ![GenFlex Logo](genflex-logo.png)
 
@@ -48,12 +48,15 @@ graph TD
     C --> E[Request Processing]
     D --> E
 
-    E --> F[Orchestrator Agent]
+    E --> F[Orchestrator/root Agent]
     F --> G[Story Generator Agent]
     F --> H[Visual Generator Agent]
     F --> I[Audio Generator Agent]
     F --> J[Video Composer Agent]
-    F --> K[Quality Assurance Agent]
+    J --> K[Quality Assurance Agent]
+    I --> K[Quality Assurance Agent]
+    H --> K[Quality Assurance Agent]
+    G --> K[Quality Assurance Agent]
 
     G --> L[Gemini 2.5-flash]
     H --> L
@@ -88,6 +91,8 @@ graph TD
     style V fill:#45b7d1,color:#fff
     style W fill:#96ceb4,color:#fff
 ```
+## Application Diagram
+![Application Diagram](genflex-diagram.png)
 
 ## Quick Start
 
@@ -347,7 +352,7 @@ For a more Infrastructure-as-Code approach, you can deploy the Cloud Run service
 
 2.  **Navigate to the `genflex` application directory:**
     ```bash
-    cd /home/nulledgenerd/Documents/Practice/agentic-ai/demos/demo-1/genflex
+    cd /genflex
     ```
 
 3.  **Build the Docker image:**
@@ -467,33 +472,6 @@ tail -f logs/run_agent.log
 4. Add tests for new functionality
 5. Submit a pull request
 
-## License
-
-Copyright 2026 Google LLC. Licensed under the Apache License, Version 2.0.
-
-## Hackathon Submission
-
-This project is submitted for the **Google AI Hackathon 2026 - Creative Storyteller Category**.
-
-### Submission Materials
-- [x] **Code Repository**: Public GitHub repository with deployment instructions
-- [x] **Demo Video**: <4 minute video showing multimodal features
-- [x] **Architecture Diagram**: System design documentation
-- [x] **Deployment Proof**: Google Cloud deployment with API enablement
-- [x] **Technical Documentation**: Comprehensive README and API docs
-
-### Judging Criteria Met
-- [x] **Gemini Integration**: Uses Gemini 2.5-flash with interleaved output
-- [x] **ADK Implementation**: Built with Agent Development Kit
-- [x] **Google Cloud Services**: Vertex AI, Cloud Run, Memorystore
-- [x] **Multimodal Output**: Text, images, audio, video interleaved
-- [x] **Creative Storytelling**: Focus on narrative generation with multimedia enhancement
-
----
-
-Built for the Google AI Hackathon 2026
-    --parent=projects/PROJECT_ID
-
 # Some Troubleshooting Tips 
 ## Verify tag the key exists on project
 gcloud resource-manager tags keys list --parent=projects/PROJECT_ID
@@ -527,10 +505,9 @@ gcloud beta services mcp enable developerknowledge.googleapis.com
 gemini mcp add -t http -H "X-Goog-Api-Key:DK_API_KEY" google-developer-knowledge https://developerknowledge.googleapis.com/mcp --scope user
 ```
 
-## Hackathon demo
+## More on local developement
 
-This repository powers the **GenFlex Creative Storyteller** built for the Gemini Live Agent Challenge. The demo emphasizes Gemini's
-interleaved multimodal output and can be interacted with locally or via HTTP.
+This repository powers the **GenFlex Creative Storyteller** built for the Gemini Live Agent Challenge. The demo emphasizes Gemini's interleaved multimodal output and can be interacted with locally or via HTTP.
 
 ### Local CLI
 Run a quick conversation from the terminal:
