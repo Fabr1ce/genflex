@@ -2,8 +2,6 @@
 
 ![GenFlex Logo](genflex-logo.png)
 
-**Google AI Hackathon 2026 - Creative Storyteller Category**
-
 A multimodal AI agent that creates engaging stories with interleaved text, images, audio, and video using Gemini's native capabilities. Built with Google ADK and deployed on Google Cloud.
 
 ## Features
