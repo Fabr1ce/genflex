@@ -382,7 +382,7 @@ For a more Infrastructure-as-Code approach, you can deploy the Cloud Run service
 5.  **Deploy with Terraform:**
     *   Navigate to the Terraform infrastructure directory:\
         ```bash
-        cd /home/nulledgenerd/Documents/Practice/agentic-ai/demos/demo-1/genflex/infrastructure
+        cd /genflex/infrastructure
         ```
     *   Initialize Terraform (if not already done for this directory after recent changes):\
         ```bash
@@ -562,11 +562,6 @@ curl -X POST localhost:8080/story \
   -H 'Content-Type: application/json' 
   -d '{"prompt": "Create a story about a robot playground"}'
 ```
-
-### Deployment Proof
-Deploy to Google Cloud (Agent Engine, Cloud Run, etc.) and capture a short recording of
-console logs or service dashboard for hackathon submission. Make sure the backend
-calls Vertex AI/ADK and uses Memorystore as described in the plan.
 
 ## Deploy to Agent Engine
 
