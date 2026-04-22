@@ -156,7 +156,7 @@ If you encounter `AccessDeniedException: 403 HttpError` during Cloud Run deploym
 
 1.  **Clone the repository & navigate:**
     ```bash
-    git clone https://github.com/your-username/genflex.git # Replace with your repo URL
+    git clone https://github.com/Fabr1ce/genflex.git # Replace with your repo URL
     cd genflex
     ```
 
